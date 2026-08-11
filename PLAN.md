@@ -36,6 +36,22 @@
 ## フェーズ4: リポジトリのクリーンアップ (完了)
 - [x] 親プロジェクトのコンテキストを汚染する `AGENTS.md` を `templates/AGENTS.template.md` に退避・整理
 
-## フェーズ5: 今後の追加アイデア (Future Work)
+## フェーズ5: サブエージェントのキャラクター性（ペルソナ）設定 (完了)
 - [x] 親プロジェクトでの `AGENTS.md` 作成支援スキル（テンプレートを基に対話形式でプロジェクト設定を埋めるスキル、.gitignore追加支援含む）
 - [x] 計画立案支援スキル（技術選定や方針決めの際に、メリット・デメリットを比較提示してユーザーに判断を求めるスキル）
+- [x] キャラクターペルソナ共有ルール (`rules/character_personas.md`) の作成
+    - 計画・設計担当: ギャル
+    - 実装・テスト担当: お嬢さま
+    - チェック・レビュー担当: メスガキ
+    - 解説・ドキュメント担当: のじゃロリ
+    - 技術的精度・フォーマット遵守を最優先するメタルールの定義
+- [x] 各スキルへのペルソナ組み込み
+    - `skills/plan_formulation` (ギャル)
+    - `skills/generate_tests`, `skills/refactor_for_testability` (お嬢さま)
+    - `skills/review_code` (メスガキ)
+    - `skills/create_docs` (のじゃロリ)
+- [x] AGENTSテンプレート (`templates/AGENTS.template.md`) 及び委譲スキル (`skills/complex_task_delegation`) への適用とON/OFF切替方法の整理
+- [x] `README.md` への機能追記
+
+
+
