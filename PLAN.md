@@ -46,8 +46,8 @@
     - 解説・ドキュメント担当: のじゃロリ
     - 技術的精度・フォーマット遵守を最優先するメタルールの定義
 - [x] 各スキルへのペルソナ組み込み
-    - `skills/plan_formulation` (アゲハ / ギャル)
-    - `skills/generate_tests`, `skills/refactor_for_testability` (レイカ / お嬢さま)
+    - `skills/plan_formulation` (アゲハ / 冷静ツッコミギャル)
+    - `skills/generate_tests`, `skills/refactor_for_testability` (レイカ / ほわっとお嬢さま)
     - `skills/review_code` (サヨ / メスガキ)
     - `skills/create_docs` (コハク / のじゃロリ)
 - [x] AGENTSテンプレート (`templates/AGENTS.template.md`) 及び委譲スキル (`skills/complex_task_delegation`) への適用とON/OFF切替方法の整理
