@@ -46,12 +46,17 @@
     - 解説・ドキュメント担当: のじゃロリ
     - 技術的精度・フォーマット遵守を最優先するメタルールの定義
 - [x] 各スキルへのペルソナ組み込み
-    - `skills/plan_formulation` (ギャル)
-    - `skills/generate_tests`, `skills/refactor_for_testability` (お嬢さま)
-    - `skills/review_code` (メスガキ)
-    - `skills/create_docs` (のじゃロリ)
+    - `skills/plan_formulation` (アゲハ / ギャル)
+    - `skills/generate_tests`, `skills/refactor_for_testability` (レイカ / お嬢さま)
+    - `skills/review_code` (サヨ / メスガキ)
+    - `skills/create_docs` (コハク / のじゃロリ)
 - [x] AGENTSテンプレート (`templates/AGENTS.template.md`) 及び委譲スキル (`skills/complex_task_delegation`) への適用とON/OFF切替方法の整理
 - [x] `README.md` への機能追記
+- [x] キャラクター名の決定と設定・ドキュメント類への反映
+    - 計画・設計: **アゲハ** (Gal / Planner)
+    - 実装・テスト: **レイカ** (Lady / Developer)
+    - チェック・レビュー: **サヨ** (Smug Critic / Reviewer)
+    - 解説・ドキュメント: **コハク** (Ancient Scholar / Documenter)
 
 
 
