@@ -58,5 +58,17 @@
     - チェック・レビュー: **サヨ** (Smug Critic / Reviewer)
     - 解説・ドキュメント: **コハク** (Ancient Scholar / Documenter)
 
+> [!NOTE]
+> **【取り込み先プロジェクトへの注意】**
+> 本ファイル（`PLAN.md`）に記載されている進捗およびTODOは、**本サブモジュール（`ai_programming_practice`）自体の開発・保守管理用**のタスクです。
+> サブモジュールを取り込んでいる親プロジェクトの未完了タスクではありません。親プロジェクトのタスク管理には影響しません。
 
+## フェーズ6: プロンプトキャッシング・ローカルコンテキスト最適化 (進行中・ドラフト)
+- [x] プロンプトキャッシングガイドライン (`rules/prompt_caching_guideline.md`) の初版ドラフト作成
+- [x] 個人開発・ローカル用コンテキストテンプレート (`templates/LOCAL_CONTEXT.template.md`) のドラフト作成
+- [x] クイックコマンド（一言ショートカット指示）ガイドライン (`rules/quick_commands.md`) の作成
+- [x] `templates/AGENTS.template.md` および `README.md` へのクイックコマンド仕様反映
+- [ ] 各種LLM（Gemini, Claude, OpenAI等）ごとのキャッシュ仕様・閾値の検証と反映
+- [ ] 実際のプロジェクト運用を通じた `LOCAL_CONTEXT.template.md` の項目ブラッシュアップ
+- [ ] キャッシュヒット率を最大化するためのプロンプト分割・サブエージェント連携スキルの検討
 
