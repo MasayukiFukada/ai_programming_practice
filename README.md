@@ -11,7 +11,11 @@
   - プロジェクト全体で適用すべき制約（例: Vertical Slice Architecture 指針、ハルシネーション対策、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)** など）
 - `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。
   - 各スキルはディレクトリ単位で管理し、中に `SKILL.md` を配置します。
-  - 計画立案（アゲハ / 冷静ツッコミギャル）、テスト作成・局所リファクタ（レイカ / ほわほわお嬢さま）、全体最適化・CCN改善（ナユタ / プログラミングヲタク）、コードレビュー（サヨ / メスガキ）、ドキュメント作成（コハク / のじゃロリ）などの役割別ペルソナ対応スキルを含みます。
+  - **アゲハ (Gal / Planner)**: 計画立案 (`plan_formulation`)、要件ヒアリング (`interview_requirements`)、UI/UXツッコミ (`critique_ux_flow`)
+  - **レイカ (Lady / Developer)**: テスト自動生成 (`generate_tests`)、TDDスキャフォールディング (`scaffold_tdd`)、モックFactory作成 (`generate_mock_factory`)、テスタブルリファクタ (`refactor_for_testability`)
+  - **ナユタ (Geek / Optimizer)**: 全体最適化・CCN激減 (`optimize_complexity`)、ベンチマーク計測 (`benchmark_performance`)、非同期・並行ハック (`optimize_concurrency`)、ライブラリ更新 (`upgrade_dependencies`)、自己修復 (`self_heal_error`)
+  - **サヨ (Smug / Reviewer)**: 厳密コードレビュー (`review_code`)、意地悪ファズテスト生成 (`generate_fuzz_tests`)
+  - **コハク (Scholar / Documenter)**: ドキュメント作成 (`create_docs`)、ADR自動永続化 (`distill_adr`)、Mermaidアーキテクチャ図解 (`visualize_architecture`)
 - `templates/` : 各プロジェクトで利用できる設定ファイルのテンプレートです。
   - `AGENTS.template.md` : 親プロジェクトのルートに配置する `AGENTS.md` の雛形です。プロジェクト固有の要件や技術スタック、ペルソナモードのON/OFF等を設定できます。
   - `LOCAL_CONTEXT.template.md` : 個人開発やローカル環境でトークン消費を抑えつつAIにプロジェクト仕様（準静的）を渡すための雛形です（`.gitignore` 推奨）。

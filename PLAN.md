@@ -88,8 +88,14 @@
     - 6大評価観点（requirements, design, maintainability, security, performance, testing）の定義
     - 3段階重要度（MUST / SHOULD / SUGGESTION）の定義
     - 機械可読な構造化JSON出力フォーマットの制定とサヨペルソナ連携
-- [x] クイックコマンド (`rules/quick_commands.md`, `templates/AGENTS.template.md`) に「修復 (`fix`)」「更新 (`upgrade`)」を追加
-- [x] `README.md` へのフック機能・新スキルの記載
+- [x] 各キャラクターの専門性・拡張スキルの実装 (全8スキル)
+    - アゲハ: 要件ヒアリング (`skills/interview_requirements`)、UI/UXツッコミ (`skills/critique_ux_flow`)
+    - レイカ: TDDスキャフォールディング (`skills/scaffold_tdd`)、モックFactory作成 (`skills/generate_mock_factory`)
+    - ナユタ: ベンチマーク定量証明 (`skills/benchmark_performance`)、非同期・並行ハック (`skills/optimize_concurrency`)
+    - サヨ: 意地悪データ・ファズテスト生成 (`skills/generate_fuzz_tests`)
+    - コハク: ADR自動永続化 (`skills/distill_adr`)、Mermaidアーキテクチャ図解 (`skills/visualize_architecture`)
+- [x] クイックコマンド (`rules/quick_commands.md`, `templates/AGENTS.template.md`) に新スキル対応コマンド（「ヒアリング」「TDD」「モック」「ベンチ」「ファズ」「図解」「ADR」等）を追加
+- [x] `README.md` および `rules/character_personas.md` への新スキル一覧反映
 
 ## フェーズ8: 実プロジェクトでの運用検証とフィードバック反映 (進行中)
 - [ ] 親プロジェクトでの実運用を通じた `LOCAL_LOG.md` の運用感・トークン削減効果の測定
