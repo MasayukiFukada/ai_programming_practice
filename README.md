@@ -22,6 +22,8 @@
   - `LOCAL_LOG.template.md` : 直近の作業履歴や決定事項を末尾追記（Append-Only）形式で安全に蓄積し、Prefixキャッシュを保護するための雛形です（`.gitignore` 推奨）。
 - `hooks.json` / `scripts/` : AIライフサイクルに連動する安全ガード・自動化スクリプトです。
   - 危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）** をGitフック設定不要で提供します。
+- `docs/` : ドキュメントおよびアセット配置ディレクトリです。
+  - **[`docs/characters.md`](docs/characters.md)** : 5人のサブエージェント（アゲハ、レイカ、サヨ、コハク、ナユタ）の立ち絵イラスト・アバターアイコン・詳細設定をまとめたビジュアル名鑑です。
 
 
 ## 導入・セットアップ方法
