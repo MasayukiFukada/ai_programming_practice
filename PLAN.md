@@ -77,7 +77,17 @@
 - [x] `templates/AGENTS.template.md` および `README.md` への `.gitignore`（`LOCAL_*.md`）およびキャッシュ仕様反映
 - [x] サブエージェント委譲スキル (`skills/complex_task_delegation`) へのキャッシュ最適化（Prefix-Sharing）指示の反映
 
-## フェーズ7: 実プロジェクトでの運用検証とフィードバック反映 (進行中)
+## フェーズ7: AIライフサイクルフック＆自己修復・保守スキルの導入 (完了)
+- [x] AIネイティブフック設定 (`hooks.json`) および自動化スクリプトの実装
+    - 危険コマンド（`rm -rf`, `git push -f`, `.env` 削除等）の事前ブロック・確認フック (`scripts/safety_guard.sh`)
+    - エラー連続検知＆ユーザー相談介入フック (`scripts/error_post_tool.sh`, `scripts/error_pre_invocation.sh`)
+    - ファイル保存時の自動フォーマッタ (`scripts/auto_formatter.sh`)
+- [x] 依存ライブラリ更新・非推奨API移行スキル (`skills/upgrade_dependencies`) の作成 (ナユタ＆レイカ担当)
+- [x] エラー自己修復・難航時ユーザー相談スキル (`skills/self_heal_error`) の作成 (ナユタ＆アゲハ＆レイカ担当)
+- [x] クイックコマンド (`rules/quick_commands.md`, `templates/AGENTS.template.md`) に「修復 (`fix`)」「更新 (`upgrade`)」を追加
+- [x] `README.md` へのフック機能・新スキルの記載
+
+## フェーズ8: 実プロジェクトでの運用検証とフィードバック反映 (進行中)
 - [ ] 親プロジェクトでの実運用を通じた `LOCAL_LOG.md` の運用感・トークン削減効果の測定
-- [ ] 独自プラグイン/フックとの連携検証
+- [ ] フック（安全ガード・エラー相談）の動作感検証と調整
 
