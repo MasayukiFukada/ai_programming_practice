@@ -21,7 +21,7 @@
   - `LOCAL_CONTEXT.template.md` : 個人開発やローカル環境でトークン消費を抑えつつAIにプロジェクト仕様（準静的）を渡すための雛形です（`.gitignore` 推奨）。
   - `LOCAL_LOG.template.md` : 直近の作業履歴や決定事項を末尾追記（Append-Only）形式で安全に蓄積し、Prefixキャッシュを保護するための雛形です（`.gitignore` 推奨）。
 - `hooks.json` / `scripts/` : AIライフサイクルに連動する安全ガード・自動化スクリプトです。
-  - 危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）をGitフック設定不要で提供します。
+  - 危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）** をGitフック設定不要で提供します。
 
 
 ## 導入・セットアップ方法

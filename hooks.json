@@ -47,5 +47,23 @@
         ]
       }
     ]
+  },
+  "submodule-update-checker": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "./scripts/check_submodule_update.sh",
+        "timeout": 5
+      }
+    ]
+  },
+  "doc-drift-reminder": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "./scripts/doc_drift_checker.sh",
+        "timeout": 5
+      }
+    ]
   }
 }

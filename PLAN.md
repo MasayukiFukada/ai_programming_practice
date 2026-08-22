@@ -82,9 +82,12 @@
     - 危険コマンド（`rm -rf`, `git push -f`, `.env` 削除等）の事前ブロック・確認フック (`scripts/safety_guard.sh`)
     - エラー連続検知＆ユーザー相談介入フック (`scripts/error_post_tool.sh`, `scripts/error_pre_invocation.sh`)
     - ファイル保存時の自動フォーマッタ (`scripts/auto_formatter.sh`)
-- [x] 依存ライブラリ更新・非推奨API移行スキル (`skills/upgrade_dependencies`) の作成 (ナユタ＆レイカ担当)
+    - 大元リポジトリの最新更新検知・通知フック (`scripts/check_submodule_update.sh`)
+    - コード変更時のドキュメント乖離検知・更新リマインダーフック (`scripts/doc_drift_checker.sh`)
+- [x] 依存ライブラリ更新・非推奨API移行スキル (`skills/upgrade_dependencies`) の作成 (ナユタ＆レイカ担当、サブモジュール自体の更新対応含む)
 - [x] エラー自己修復・難航時ユーザー相談スキル (`skills/self_heal_error`) の作成 (ナユタ＆アゲハ＆レイカ担当)
 - [x] コードレビューガイドライン・スキルの刷新 (`rules/code_review_guideline.md`, `skills/review_code`)
+    - ブランチ単位レビュー原則（分岐起点〜HEADまでの累積差分評価、スコープ外コードへの指摘禁止）の明記
     - 6大評価観点（requirements, design, maintainability, security, performance, testing）の定義
     - 3段階重要度（MUST / SHOULD / SUGGESTION）の定義
     - 機械可読な構造化JSON出力フォーマットの制定とサヨペルソナ連携
