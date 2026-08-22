@@ -84,6 +84,10 @@
     - ファイル保存時の自動フォーマッタ (`scripts/auto_formatter.sh`)
 - [x] 依存ライブラリ更新・非推奨API移行スキル (`skills/upgrade_dependencies`) の作成 (ナユタ＆レイカ担当)
 - [x] エラー自己修復・難航時ユーザー相談スキル (`skills/self_heal_error`) の作成 (ナユタ＆アゲハ＆レイカ担当)
+- [x] コードレビューガイドライン・スキルの刷新 (`rules/code_review_guideline.md`, `skills/review_code`)
+    - 6大評価観点（requirements, design, maintainability, security, performance, testing）の定義
+    - 3段階重要度（MUST / SHOULD / SUGGESTION）の定義
+    - 機械可読な構造化JSON出力フォーマットの制定とサヨペルソナ連携
 - [x] クイックコマンド (`rules/quick_commands.md`, `templates/AGENTS.template.md`) に「修復 (`fix`)」「更新 (`upgrade`)」を追加
 - [x] `README.md` へのフック機能・新スキルの記載
 
