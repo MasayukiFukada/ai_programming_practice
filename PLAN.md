@@ -54,7 +54,8 @@
 - [x] `README.md` への機能追記
 - [x] キャラクター名の決定と設定・ドキュメント類への反映
     - 計画・設計: **アゲハ** (Gal / Planner)
-    - 実装・テスト: **レイカ** (Lady / Developer)
+    - 実装・局所リファクタ: **レイカ** (Lady / Developer)
+    - 全体最適化・CCN改善: **ナユタ** (Geek / Optimizer)
     - チェック・レビュー: **サヨ** (Smug Critic / Reviewer)
     - 解説・ドキュメント: **コハク** (Ancient Scholar / Documenter)
 
@@ -63,12 +64,20 @@
 > 本ファイル（`PLAN.md`）に記載されている進捗およびTODOは、**本サブモジュール（`ai_programming_practice`）自体の開発・保守管理用**のタスクです。
 > サブモジュールを取り込んでいる親プロジェクトの未完了タスクではありません。親プロジェクトのタスク管理には影響しません。
 
-## フェーズ6: プロンプトキャッシング・ローカルコンテキスト最適化 (進行中・ドラフト)
-- [x] プロンプトキャッシングガイドライン (`rules/prompt_caching_guideline.md`) の初版ドラフト作成
-- [x] 個人開発・ローカル用コンテキストテンプレート (`templates/LOCAL_CONTEXT.template.md`) のドラフト作成
+## フェーズ6: プロンプトキャッシング・コンテキスト階層化最適化 (完了)
+- [x] プロンプトキャッシングガイドライン (`rules/prompt_caching_guideline.md`) の作成・階層化設計
+    - Tier 1（完全静的ルール）〜 Tier 4（動的指示）の4層構造定義
+    - サブエージェント間でのプレフィックスキャッシュ共有設計（Prefix-Sharingパターン）
+    - キャッシュ破壊を防ぐメタデータ（更新日・バージョン・Tier指定）規約
+    - 各種LLM（Claude, Gemini, OpenAI）ごとの最小キャッシュ閾値・仕様の整理
+- [x] ローカルコンテキストのファイル分離設計とテンプレート整備
+    - `templates/LOCAL_CONTEXT.template.md` (Tier 2: 準静的プロジェクト仕様)
+    - `templates/LOCAL_LOG.template.md` (Tier 3: 追記型作業ログ)
 - [x] クイックコマンド（一言ショートカット指示）ガイドライン (`rules/quick_commands.md`) の作成
-- [x] `templates/AGENTS.template.md` および `README.md` へのクイックコマンド仕様反映
-- [ ] 各種LLM（Gemini, Claude, OpenAI等）ごとのキャッシュ仕様・閾値の検証と反映
-- [ ] 実際のプロジェクト運用を通じた `LOCAL_CONTEXT.template.md` の項目ブラッシュアップ
-- [ ] キャッシュヒット率を最大化するためのプロンプト分割・サブエージェント連携スキルの検討
+- [x] `templates/AGENTS.template.md` および `README.md` への `.gitignore`（`LOCAL_*.md`）およびキャッシュ仕様反映
+- [x] サブエージェント委譲スキル (`skills/complex_task_delegation`) へのキャッシュ最適化（Prefix-Sharing）指示の反映
+
+## フェーズ7: 実プロジェクトでの運用検証とフィードバック反映 (進行中)
+- [ ] 親プロジェクトでの実運用を通じた `LOCAL_LOG.md` の運用感・トークン削減効果の測定
+- [ ] 独自プラグイン/フックとの連携検証
 
