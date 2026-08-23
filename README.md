@@ -71,11 +71,12 @@ git submodule update --init --recursive
 - **親プロジェクト側でサブモジュール内を直接編集しない**: サブモジュール配下の変更は親プロジェクトのコミットには含まれません。スキルやルールの変更・追加は本基盤リポジトリ側で行い、コミット・プッシュしてください。
 - **親プロジェクト側で最新の基盤ルールを取り込む場合**:
   ```bash
-  # 最新のサブモジュール参照を取得
-  git submodule update --remote
+  # 対象プラグインの最新参照を取得
+  git submodule update --remote .agents/plugins/ai_programming_practice
 
-  # 変更された参照ポインタを親プロジェクト側でコミット
+  # 変更された参照ポインタを親プロジェクト側でコミット（※末尾に / を付けない）
   git add .agents/plugins/ai_programming_practice
   git commit -m "Update ai_programming_practice plugin to latest"
+  git push origin main
   ```
 
