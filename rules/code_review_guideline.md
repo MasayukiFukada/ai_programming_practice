@@ -57,6 +57,7 @@ AIエージェント（サヨ / レビュー担当等）および開発者がコ
 ### ⑥ テスト品質 (`testing`)
 - 正常系・異常系・境界値の網羅性
 - アサーション（検証内容）の妥当性とテストの独立性
+- **ミューテーション耐性**: [mutation_testing_guideline.md](file:///home/minamo/repository/ai_programming_practice/rules/mutation_testing_guideline.md) に基づき、実装の条件分岐や計算を反転させてもパスしてしまう「空っぽのテスト（緩いアサーションや過度なモック）」がないか厳格に評価すること。
 
 
 ---
