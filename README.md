@@ -1,7 +1,7 @@
 # 生成AIプログラミング共通基盤 (AI Programming Practice)
 
 本リポジトリは、生成AIを活用した開発において、プロンプト、エージェント用ルール、スキルを一元管理するための共通基盤です。
-他のプロジェクトから **Git Submodule** として取り込むことで、開発効率の向上と品質水準の均一化を図ることを目的としています。
+マシン全体への **グローバル一括導入（Mantisスタイル）** や、プロジェクトごとの **Git Submodule** として取り込むことで、開発効率の向上と品質水準の均一化を図ることを目的としています。
 
 ## ディレクトリ構成（予定・一部移行中）
 
@@ -21,12 +21,55 @@
   - `LOCAL_CONTEXT.template.md` : 個人開発やローカル環境でトークン消費を抑えつつAIにプロジェクト仕様（準静的）を渡すための雛形です（`.gitignore` 推奨）。
   - `LOCAL_LOG.template.md` : 直近の作業履歴や決定事項を末尾追記（Append-Only）形式で安全に蓄積し、Prefixキャッシュを保護するための雛形です（`.gitignore` 推奨）。
 - `hooks.json` / `scripts/` : AIライフサイクルに連動する安全ガード・自動化スクリプトです。
-  - 危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）** をGitフック設定不要で提供します。
+  - **グローバル環境一括セットアップ（`setup_global.sh`）**、危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）** を提供します。
+- `commands/` : Antigravity / Gemini CLI のカスタムスラッシュコマンド（`.toml`）を配置します。
+  - `i-have-adhd.toml` : ペルソナと融合したAction-First（認知負荷低減＆タスク極小ステップ化）モード。
 - `docs/` : ドキュメントおよびアセット配置ディレクトリです。
   - **[`docs/characters.md`](docs/characters.md)** : 5人のサブエージェント（アゲハ、レイカ、サヨ、コハク、ナユタ）の立ち絵イラスト・アバターアイコン・詳細設定をまとめたビジュアル名鑑です。
 
 
 ## 導入・セットアップ方法
+
+開発スタイルに合わせて、以下の **2つの方式** から選択できます。
+
+| 方式 | 推奨ユースケース | 特徴 |
+| :--- | :--- | :--- |
+| **方式1: グローバル一括導入 (Mantisスタイル)** | 個人開発、複数プロジェクト横断 | 各プロジェクトのGitを汚さず、基盤の更新が全プロジェクトに即時反映 |
+| **方式2: サブモジュール導入** | チーム開発、CI/CD環境 | コミットハッシュで固定し、全メンバーで完全同一のバージョンを共有 |
+
+---
+
+### 方式1: グローバル一括導入（Mantisスタイル / 個人開発向け推奨）
+
+PC上のすべてのプロジェクトから本リポジトリを参照するスタイルです。各プロジェクト側に設定ファイルをコミットする必要がなく、本リポジトリを更新するだけで全プロジェクトにスキルやペルソナが即時反映されます。
+
+#### 自動セットアップ（ワンコマンド）
+本リポジトリ配下のセットアップスクリプトを実行するだけで、シンボリックリンク作成およびグローバル `AGENTS.md` へのペルソナ登録が完了します。
+
+```bash
+./scripts/setup_global.sh
+```
+
+#### 手動で設定する場合
+```bash
+# 1. ~/.gemini/config, ~/.gemini/commands ディレクトリを確保し、シンボリックリンクを作成
+mkdir -p ~/.gemini/config ~/.gemini/commands
+ln -s ~/repository/ai_programming_practice/skills ~/.gemini/config/skills
+ln -s ~/repository/ai_programming_practice/rules ~/.gemini/config/rules
+ln -s ~/repository/ai_programming_practice/commands/i-have-adhd.toml ~/.gemini/commands/i-have-adhd.toml
+
+# 2. グローバル AGENTS.md にペルソナルールをインクルード登録
+cat << 'EOF' >> ~/.gemini/config/AGENTS.md
+
+## キャラクターペルソナ
+タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
+@[character_personas](/home/minamo/repository/ai_programming_practice/rules/character_personas.md)
+EOF
+```
+
+---
+
+### 方式2: サブモジュール導入（チーム開発・CI向け）
 
 各プロジェクトには固有の `.agents` 設定（プロジェクト独自のルールなど）が存在することが多いため、本リポジトリは直接 `.agents` として上書きするのではなく、**プラグイン（Plugin）** としてサブモジュール導入することを推奨します。
 
@@ -35,7 +78,7 @@
 親プロジェクトのルートディレクトリで以下のコマンドを実行し、本リポジトリをプラグインとして追加・コミットします。
 
 ```bash
-git submodule add <本リポジトリのURL> .agents/plugins/ai_programming_practice
+git submodule add https://github.com/MasayukiFukada/ai_programming_practice .agents/plugins/ai_programming_practice
 git commit -m "Add ai_programming_practice as an agent plugin"
 git push origin main
 ```
