@@ -10,7 +10,7 @@ description: 対象コード（またはDiff）に対して、6大評価観点�
 ## 手順
 
 1. **ブランチ全体の累積差分とコンテキストの取得**
-   - 原則として、ベースブランチ（`main` / `master` 等）からの累積差分（`git diff $(git merge-base main HEAD)...HEAD` または `git diff main...HEAD`）を取得する。
+   - 原則として、ベースブランチ（`main` / `master` 等）からの累積差分（`git diff $(git merge-base main HEAD)...HEAD` または `git diff main...HEAD`、Jujutsu環境では `jj diff -r main..@` または `jj diff`）を取得する。
    - **ブランチの変更に含まれない既存コードはレビューのスコープ外**とし、今回の変更箇所およびそれに起因する影響範囲のみに集中する。
    - `LOCAL_CONTEXT.md` や `rules/*.md` を確認し、プロジェクトのアーキテクチャや制約を把握する。
 

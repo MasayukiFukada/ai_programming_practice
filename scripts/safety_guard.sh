@@ -21,9 +21,9 @@ fi
 # 危険なコマンドパターンのチェック
 DANGEROUS_REASONS=""
 
-# 1. 強制プッシュ / ハードリセット / 破壊的Git操作
-if echo "$COMMAND_LINE" | grep -qE 'git +push +.*(-f|--force)|git +reset +--hard|git +clean +-fdx'; then
-  DANGEROUS_REASONS="破壊的なGit操作（強制プッシュ/ハードリセット/クリーン）"
+# 1. 強制プッシュ / ハードリセット / 破壊的Git・Jujutsu操作
+if echo "$COMMAND_LINE" | grep -qE 'git +push +.*(-f|--force)|git +reset +--hard|git +clean +-fdx|jj +git +push +.*--force'; then
+  DANGEROUS_REASONS="破壊的なVCS操作（強制プッシュ/ハードリセット/クリーン）"
 # 2. ルートや広範なディレクトリの強制削除
 elif echo "$COMMAND_LINE" | grep -qE 'rm +-rf +(/|\~|\.|\.\./|\*|\$HOME)'; then
   DANGEROUS_REASONS="広範囲・重要ディレクトリの強制削除（rm -rf）"

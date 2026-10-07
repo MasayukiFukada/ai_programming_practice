@@ -63,9 +63,11 @@ if [ -d "${REPO_ROOT}/commands" ]; then
     done
 fi
 
-# 5. ~/.gemini/config/AGENTS.md へのペルソナ登録
+# 5. ~/.gemini/config/AGENTS.md へのペルソナ・VCS優先ルールの登録
 PERSONA_PATH="${REPO_ROOT}/rules/character_personas.md"
-INCLUDE_LINE="@[character_personas](${PERSONA_PATH})"
+PERSONA_INCLUDE="@[character_personas](${PERSONA_PATH})"
+VCS_PATH="${REPO_ROOT}/rules/vcs_jujutsu_priority.md"
+VCS_INCLUDE="@[vcs_jujutsu_priority](${VCS_PATH})"
 
 if [ ! -f "${GLOBAL_AGENTS_MD}" ]; then
     cat << EOF > "${GLOBAL_AGENTS_MD}"
@@ -73,20 +75,36 @@ if [ ! -f "${GLOBAL_AGENTS_MD}" ]; then
 
 ## キャラクターペルソナ
 タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
-${INCLUDE_LINE}
+${PERSONA_INCLUDE}
+
+## バージョン管理システム（VCS）
+リポジトリ内に \`.jj/\` が存在するか \`jj root\` が成功する場合、Git よりも **Jujutsu (\`jj\`)** を最優先で使用してください（例: \`jj status\`, \`jj diff\`, \`jj describe\`, \`jj commit\`, \`jj log\`）。
+${VCS_INCLUDE}
 EOF
-    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、ペルソナルールを登録しました。"
+    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、ペルソナおよびJujutsu優先ルールを登録しました。"
 else
-    if grep -Fq "${INCLUDE_LINE}" "${GLOBAL_AGENTS_MD}" || grep -Fq "character_personas.md" "${GLOBAL_AGENTS_MD}"; then
-        echo "✔ ${GLOBAL_AGENTS_MD} には既にペルソナルールが登録されています。"
-    else
+    if ! grep -Fq "${PERSONA_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "character_personas.md" "${GLOBAL_AGENTS_MD}"; then
         cat << EOF >> "${GLOBAL_AGENTS_MD}"
 
 ## キャラクターペルソナ
 タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
-${INCLUDE_LINE}
+${PERSONA_INCLUDE}
 EOF
         echo "✔ ${GLOBAL_AGENTS_MD} にペルソナルールを追記・登録しました。"
+    else
+        echo "✔ ${GLOBAL_AGENTS_MD} には既にペルソナルールが登録されています。"
+    fi
+
+    if ! grep -Fq "${VCS_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "vcs_jujutsu_priority.md" "${GLOBAL_AGENTS_MD}"; then
+        cat << EOF >> "${GLOBAL_AGENTS_MD}"
+
+## バージョン管理システム（VCS）
+リポジトリ内に \`.jj/\` が存在するか \`jj root\` が成功する場合、Git よりも **Jujutsu (\`jj\`)** を最優先で使用してください（例: \`jj status\`, \`jj diff\`, \`jj describe\`, \`jj commit\`, \`jj log\`）。
+${VCS_INCLUDE}
+EOF
+        echo "✔ ${GLOBAL_AGENTS_MD} にJujutsu優先ルールを追記・登録しました。"
+    else
+        echo "✔ ${GLOBAL_AGENTS_MD} には既にJujutsu優先ルールが登録されています。"
     fi
 fi
 

@@ -8,7 +8,7 @@
 エージェントが自律的にコンテキストを理解し、適切に動作できるよう、以下の構成で管理します。
 
 - `rules/` : 全体的なコーディング規約やアーキテクチャのルールを配置します。
-  - プロジェクト全体で適用すべき制約（例: Vertical Slice Architecture 指針、ハルシネーション対策、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)** など）
+  - プロジェクト全体で適用すべき制約（例: Vertical Slice Architecture 指針、ハルシネーション対策、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)** など）
 - `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。
   - 各スキルはディレクトリ単位で管理し、中に `SKILL.md` を配置します。
   - **アゲハ (Gal / Planner)**: 計画立案 (`plan_formulation`)、要件ヒアリング (`interview_requirements`)、UI/UXツッコミ (`critique_ux_flow`)

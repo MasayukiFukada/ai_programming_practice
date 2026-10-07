@@ -26,6 +26,7 @@ AIにとっての「コンテキストの肥大化」と「状態の追跡困難
 - **バグ修正時のTDD徹底（Red-Green）**: バグ修正を指示された際、いきなり修正コードを書くことを禁止します。まず「バグを再現して失敗するテスト（Red）」を作成・確認してから修正し、テスト合格（Green）を確認します。
 - **テストの自己変異検証（Mutation Testing）**: テスト作成時は単に Green を目指すだけでなく、[mutation_testing_guideline.md](file:///home/minamo/repository/ai_programming_practice/rules/mutation_testing_guideline.md) に従い「実装コードの条件式をあえて一時的に壊してテストが正しく失敗するか」を自律検証し、空っぽのアサーションを排除します。
 - **Repo-Map による階層的探索**: 大規模な全体調査や機能追加時は、[repo_map_guideline.md](file:///home/minamo/repository/ai_programming_practice/rules/repo_map_guideline.md) に従い、全ファイル読み込みではなく `scripts/generate_repo_map.py` で骨格を俯瞰してから必要ファイルのみをピンポイントで読み込みます（トークン消費の極小化と既存実装見落とし防止）。
+- **バージョン管理と差分取得 (Jujutsu優先)**: プロジェクト内に `.jj` が存在する場合は Git よりも **Jujutsu (`jj`)** を最優先します（[vcs_jujutsu_priority.md](file:///home/minamo/repository/ai_programming_practice/rules/vcs_jujutsu_priority.md) 参照）。差分確認（`jj diff`）や変更確定（`jj describe` / `jj commit`）等に `jj` コマンドを使用し、意図しない差分混入を防ぎます。
 
 ## 5. 簡潔で客観的なコミュニケーション (Concise & Hard Truths)
 - **言葉の厳選と最小化**: 人間が読む文章（チャット返答、コミットメッセージ、コードコメント）は言葉を極力削り、要点のみを最小限の文量で伝えます。

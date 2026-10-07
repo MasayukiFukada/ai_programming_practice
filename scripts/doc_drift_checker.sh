@@ -22,14 +22,16 @@ if [ -f "$CACHE_FILE" ]; then
   exit 0
 fi
 
-# Git管理下でない場合はスキップ
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+# VCS管理下判定および変更されたファイル一覧を取得
+CHANGED_FILES=""
+if jj root >/dev/null 2>&1; then
+  CHANGED_FILES=$(jj diff --no-pager --summary 2>/dev/null | awk '{print $2}' || true)
+elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  CHANGED_FILES=$(git status --porcelain 2>/dev/null | awk '{print $2}' || true)
+else
   echo '{"injectSteps": []}'
   exit 0
 fi
-
-# 変更されたファイル一覧を取得（未コミットの変更＋ステージング）
-CHANGED_FILES=$(git status --porcelain 2>/dev/null | awk '{print $2}' || true)
 
 if [ -z "$CHANGED_FILES" ]; then
   echo '{"injectSteps": []}'
