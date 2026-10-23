@@ -63,11 +63,13 @@ if [ -d "${REPO_ROOT}/commands" ]; then
     done
 fi
 
-# 5. ~/.gemini/config/AGENTS.md へのペルソナ・VCS優先ルールの登録
+# 5. ~/.gemini/config/AGENTS.md へのペルソナ・VCS優先・モデル階層ルールの登録
 PERSONA_PATH="${REPO_ROOT}/rules/character_personas.md"
 PERSONA_INCLUDE="@[character_personas](${PERSONA_PATH})"
 VCS_PATH="${REPO_ROOT}/rules/vcs_jujutsu_priority.md"
 VCS_INCLUDE="@[vcs_jujutsu_priority](${VCS_PATH})"
+ESCALATION_PATH="${REPO_ROOT}/rules/model_escalation_strategy.md"
+ESCALATION_INCLUDE="@[model_escalation_strategy](${ESCALATION_PATH})"
 
 if [ ! -f "${GLOBAL_AGENTS_MD}" ]; then
     cat << EOF > "${GLOBAL_AGENTS_MD}"
@@ -80,8 +82,12 @@ ${PERSONA_INCLUDE}
 ## バージョン管理システム（VCS）
 リポジトリ内に \`.jj/\` が存在するか \`jj root\` が成功する場合、Git よりも **Jujutsu (\`jj\`)** を最優先で使用してください（例: \`jj status\`, \`jj diff\`, \`jj describe\`, \`jj commit\`, \`jj log\`）。
 ${VCS_INCLUDE}
+
+## モデル階層とエスカレーション戦略
+通常タスクは標準モデル（Standard）で進め、同一エラーの2回連続失敗や難関タスクでは高度推論モデル（High-Reasoning）のサブエージェントへタスクを委託してください。
+${ESCALATION_INCLUDE}
 EOF
-    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、ペルソナおよびJujutsu優先ルールを登録しました。"
+    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、ペルソナ、Jujutsu優先、およびモデル階層ルールを登録しました。"
 else
     if ! grep -Fq "${PERSONA_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "character_personas.md" "${GLOBAL_AGENTS_MD}"; then
         cat << EOF >> "${GLOBAL_AGENTS_MD}"
@@ -105,6 +111,18 @@ EOF
         echo "✔ ${GLOBAL_AGENTS_MD} にJujutsu優先ルールを追記・登録しました。"
     else
         echo "✔ ${GLOBAL_AGENTS_MD} には既にJujutsu優先ルールが登録されています。"
+    fi
+
+    if ! grep -Fq "${ESCALATION_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "model_escalation_strategy.md" "${GLOBAL_AGENTS_MD}"; then
+        cat << EOF >> "${GLOBAL_AGENTS_MD}"
+
+## モデル階層とエスカレーション戦略
+通常タスクは標準モデル（Standard）で進め、同一エラーの2回連続失敗や難関タスクでは高度推論モデル（High-Reasoning）のサブエージェントへタスクを委託してください。
+${ESCALATION_INCLUDE}
+EOF
+        echo "✔ ${GLOBAL_AGENTS_MD} にモデル階層・エスカレーションルールを追記・登録しました。"
+    else
+        echo "✔ ${GLOBAL_AGENTS_MD} には既にモデル階層・エスカレーションルールが登録されています。"
     fi
 fi
 
