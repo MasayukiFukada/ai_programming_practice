@@ -109,3 +109,12 @@
 - [ ] 親プロジェクトでの実運用を通じた `LOCAL_LOG.md` の運用感・トークン削減効果の測定
 - [ ] フック（安全ガード・エラー相談・ドキュメント更新提案）の動作感検証と調整
 
+## フェーズ9: 構造的負債の解消＆能動的サブエージェント協調モデル刷新 (完了)
+- [x] VSAガイドラインの統合と命名規則統一 (`rules/vertical_slice_architecture.md`)
+- [x] `character_personas.md` の軽量コア化（約30KB→4.5KBへ85%トークン削減）と詳細リファレンス分離 (`docs/character_personas_detail.md`)
+- [x] セキュリティレビュー基準の統合・SSOT化（Mantis脆弱性検証を `rules/code_review_guideline.md` に包含）
+- [x] 能動的モデル活用＆サブエージェント協調戦略への進化 (`rules/model_escalation_strategy.md`, `skills/complex_task_delegation`)
+  - 調査（Flash/Flash-Lite）、中核実装（Pro）、客観レビュー（Pro独立コンテキスト）、全体最適化（Pro）の役割別モデル割り振り指針
+- [x] 全20スキルの早見表カタログ (`docs/skills_catalog.md`) の作成と README / テンプレートへの反映
+
+

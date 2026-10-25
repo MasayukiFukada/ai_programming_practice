@@ -76,7 +76,7 @@
 - ドキュメントは `docs/` 配下に Markdown 形式( Open Knowledge Format )で残す。
 - 変更を加える際は `PLAN.md` を更新し、進捗を管理する。
 - ローカル専用のAIコンテキストは `LOCAL_CONTEXT.md`（仕様・不変）と `LOCAL_LOG.md`（作業ログ・追記型）に分離して管理する。
-- モデル階層・エスカレーション: 通常タスクは標準モデル（Standard）で進め、同一エラーの2回連続失敗や難関タスク（CCN削減、大規模設計）では高度推論モデル（High-Reasoning）のサブエージェントへ委託する（`rules/model_escalation_strategy.md` 参照）。
+- 能動的モデル活用＆サブエージェント協調: 単一コンテキストで抱え込まず、調査（`flash`）・核心実装（`pro`）・客観レビュー（`pro`）などのフェーズに応じてサブエージェントを能動的に起動し、適材適所で最新モデルを活用する（`rules/model_escalation_strategy.md` 参照）。
 
 ## クイックコマンド（一言ショートカット指示）
 

@@ -11,7 +11,7 @@ description: Vertical Slice Architecture のルールに則って、対象プロ
 ## 前提条件
 
 - 親プロジェクトの言語・フレームワーク設定（例: `.env` や `AGENTS.md` の技術スタック情報）を確認すること。
-- プロジェクト独自の `rules`（例: `rules/VerticalSliceArchitecture_GuideLine_JP.md` 等）を必ず参照すること。
+- プロジェクト独自の `rules`（例: `rules/vertical_slice_architecture.md` 等）を必ず参照すること。
 
 ## 手順
 

@@ -8,8 +8,8 @@
 エージェントが自律的にコンテキストを理解し、適切に動作できるよう、以下の構成で管理します。
 
 - `rules/` : 全体的なコーディング規約やアーキテクチャのルールを配置します。
-  - プロジェクト全体で適用すべき制約（例: Vertical Slice Architecture 指針、ハルシネーション対策、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**モデル階層＆エスカレーション指針 (`model_escalation_strategy.md`)** など）
-- `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。
+  - プロジェクト全体で適用すべき制約（例: **VSA指針 (`vertical_slice_architecture.md`)**、ハルシネーション対策 (`anti_hallucination_guideline.md`)、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**能動的モデル活用＆サブエージェント協調指針 (`model_escalation_strategy.md`)**、**厳密コードレビュー指針 (`code_review_guideline.md`)** など）
+- `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。全20スキルの早見表は **[`docs/skills_catalog.md`](docs/skills_catalog.md)** を参照してください。
   - 各スキルはディレクトリ単位で管理し、中に `SKILL.md` を配置します。
   - **アゲハ (Gal / Planner)**: 計画立案 (`plan_formulation`)、要件ヒアリング (`interview_requirements`)、UI/UXツッコミ (`critique_ux_flow`)
   - **レイカ (Lady / Developer)**: テスト自動生成 (`generate_tests`)、TDDスキャフォールディング (`scaffold_tdd`)、モックFactory作成 (`generate_mock_factory`)、テスタブルリファクタ (`refactor_for_testability`)
@@ -25,7 +25,9 @@
 - `commands/` : Antigravity / Gemini CLI のカスタムスラッシュコマンド（`.toml`）を配置します。
   - `i-have-adhd.toml` : ペルソナと融合したAction-First（認知負荷低減＆タスク極小ステップ化）モード。
 - `docs/` : ドキュメントおよびアセット配置ディレクトリです。
+  - **[`docs/skills_catalog.md`](docs/skills_catalog.md)** : 全20スキルの担当者・推奨モデル・クイックコマンド早見表です。
   - **[`docs/characters.md`](docs/characters.md)** : 5人のサブエージェント（アゲハ、レイカ、サヨ、コハク、ナユタ）の立ち絵イラスト・アバターアイコン・詳細設定をまとめたビジュアル名鑑です。
+  - **[`docs/character_personas_detail.md`](docs/character_personas_detail.md)** : シチュエーション別セリフ集・掛け合い例・Action-First詳細リファレンスです。
 
 
 ## 導入・セットアップ方法
