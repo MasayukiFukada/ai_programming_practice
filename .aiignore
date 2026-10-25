@@ -1,0 +1,84 @@
+# ==============================================================================
+# .aiignore - AI Context & Agent Access Exclusion Specification
+# ==============================================================================
+# このファイルはAIエージェント（Antigravity, Gemini, Cursor, Claude Code, Copilot等）が
+# プロジェクトを解析・読み込み・編集する際の除外パターンを定義する正本ファイルです。
+#
+# 【他ツール連携の推奨運用】
+# 各ツールの互換性を保つため、ルートディレクトリで以下のシンボリックリンクを作成してください：
+#   ln -s .aiignore .cursorignore   # Cursor 用
+#   ln -s .aiignore .aiexclude      # Gemini Code Assist / Android Studio 用
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. 機密情報・クレデンシャル (Security & Secrets)
+# ------------------------------------------------------------------------------
+# APIキー、DB接続文字列、秘密鍵のAIコンテキスト流出（外部送信・ログ残留）を防止
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+id_rsa
+id_ecdsa
+id_ed25519
+*secret*
+*credential*
+service-account*.json
+gcp-key*.json
+aws-credentials*
+
+# ------------------------------------------------------------------------------
+# 2. 巨大ロックファイル・依存パッケージ (Token Bloat & Context Dilution)
+# ------------------------------------------------------------------------------
+# 数万行のトークンを消費し推論精度を散漫にさせるため、AIの全文読み込みから除外
+# ※ 依存確認は package.json / Cargo.toml / pyproject.toml 等を参照すること
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+Cargo.lock
+poetry.lock
+Pipfile.lock
+composer.lock
+Gemfile.lock
+bun.lockb
+vendor/
+node_modules/
+
+# ------------------------------------------------------------------------------
+# 3. ビルド成果物・一時ファイル・キャッシュ (Build Artifacts & Caches)
+# ------------------------------------------------------------------------------
+dist/
+build/
+out/
+target/
+bin/
+obj/
+*.min.js
+*.min.css
+*.map
+.cache/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+*.pyc
+.turbo/
+.next/
+.nuxt/
+coverage/
+*.lcov
+
+# ------------------------------------------------------------------------------
+# 4. 自動生成コード (Generated Files - Do Not Manually Edit)
+# ------------------------------------------------------------------------------
+# AIによる手動修正とビルド時上書き消滅の悲劇を防止
+**/generated/**
+**/__generated__/**
+*generated*.go
+*generated*.ts
+*.pb.go
+*_pb2.py
