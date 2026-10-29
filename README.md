@@ -21,10 +21,11 @@
   - `LOCAL_CONTEXT.template.md` : 個人開発やローカル環境でトークン消費を抑えつつAIにプロジェクト仕様（準静的）を渡すための雛形です（`.gitignore` 推奨）。
   - `LOCAL_LOG.template.md` : 直近の作業履歴や決定事項を末尾追記（Append-Only）形式で安全に蓄積し、Prefixキャッシュを保護するための雛形です（`.gitignore` 推奨）。
 - `hooks.json` / `scripts/` : AIライフサイクルに連動する安全ガード・自動化スクリプトです。
-  - **グローバル環境一括セットアップ（`setup_global.sh`）**、危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）** を提供します。
+  - **グローバル環境一括セットアップ（`setup_global.sh`）**、危険コマンドの事前ブロック/確認（`safety_guard.sh`）、エラー連続検知＆ユーザー相談介入（`error_*.sh`）、ファイル保存時の自動整形（`auto_formatter.sh`）、大元リポジトリの最新更新検知（`check_submodule_update.sh`）、**コード変更時のドキュメント更新リマインダー（`doc_drift_checker.sh`）**、**サヨの抜き打ちストレステスト検知（`surprise_test_checker.sh`）** を提供します。
 - `commands/` : Antigravity / Gemini CLI のカスタムスラッシュコマンド（`.toml`）を配置します。
   - `i-have-adhd.toml` : ペルソナと融合したAction-First（認知負荷低減＆タスク極小ステップ化）モード。
 - `docs/` : ドキュメントおよびアセット配置ディレクトリです。
+  - **[`docs/external_references.md`](docs/external_references.md)** : 本基盤が採用・インスパイアされた外部ナレッジ（Aider, VSA, Mantis, EGM, Mutation Testing等）の出典・採用理由一覧です。
   - **[`docs/skills_catalog.md`](docs/skills_catalog.md)** : 全20スキルの担当者・推奨モデル・クイックコマンド早見表です。
   - **[`docs/characters.md`](docs/characters.md)** : 5人のサブエージェント（アゲハ、レイカ、サヨ、コハク、ナユタ）の立ち絵イラスト・アバターアイコン・詳細設定をまとめたビジュアル名鑑です。
   - **[`docs/character_personas_detail.md`](docs/character_personas_detail.md)** : シチュエーション別セリフ集・掛け合い例・Action-First詳細リファレンスです。

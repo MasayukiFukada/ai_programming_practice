@@ -65,5 +65,14 @@
         "timeout": 5
       }
     ]
+  },
+  "surprise-test-checker": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "./scripts/surprise_test_checker.sh",
+        "timeout": 5
+      }
+    ]
   }
 }
