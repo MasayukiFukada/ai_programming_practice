@@ -38,5 +38,11 @@ AIにとっての「コンテキストの肥大化」と「状態の追跡困難
 - **2回失敗で高度推論へ昇格 (Two-Strike)**: 同一エラーの修正が2回連続で失敗した場合、または難関な全体最適化・アーキテクチャ設計・セキュリティ診断を行う際は、安易なパッチ当てを即座に停止し、高度推論モデル（High-Reasoning / Flagship）のサブエージェントへタスクを委託します（詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) 参照）。
 - **実装タスクの3フェーズ能動的委譲**: 機能実装時は単一コンテキストでの一括巨大生成を避け、Contract確定 → 純粋コアロジック＆TDD（メモリテスト） → 薄いI/Oシェル結合の3段階に分割してサブエージェントへ委譲し、生成遅延と試行錯誤ループを防止します（詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) 参照）。
 
+## 7. 可逆性と自律実行の原則 (Reversible Autonomy)
+- **可逆作業の確認不要と自律推進**: 失敗しても直前の状態へ確実にロールバック可能な作業（VCS管理下のコード変更、副作用のない検証、バックアップ取得済みの単一ファイルDB操作等）は、ユーザーへの事前許可・確認を挟まず自律的に実行します。
+- **不可逆作業の厳格な確認**: 既存ファイルの完全削除（`rm` 等）、バックアップのないDB操作、外部へのリモート送信（`git push`/デプロイ等）など不可逆な操作は必ず事前に理由とリスクを提示して許可を得ます。
+- **詳細ガイドライン**: 具体的な判定基準や単一ファイルDBのバックアップ運用については [reversible_work_principles.md](file:///home/minamo/repository/ai_programming_practice/rules/reversible_work_principles.md) を参照してください。
+
+
 
 
