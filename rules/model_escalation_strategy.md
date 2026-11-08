@@ -102,10 +102,18 @@ invoke_subagent:
 
 ---
 
-## 7. 実装タスクにおける3フェーズ能動的委譲プロトコル (3-Phase Implementation Protocol)
+## 7. 実装タスクにおける自律ブレスト＆能動的委譲プロトコル (Autonomous Brainstorming & Delegation Protocol)
 
 機能実装や大幅な改修を依頼された際、親エージェントが単一コンテキストで「型定義・コア計算・I/O結合・テスト」を一度に一括生成することは禁止します（大量出力による生成遅延、モック複雑化に伴う試行錯誤ループ、コンテキスト汚染を防止するため）。
-親エージェントは自律的に以下の3フェーズ（＋独立レビュー）にタスクを分割し、サブエージェントへ委譲して進行します。
+親エージェントは要望検知時に自律的に事前ブレストを行い、以下のフェーズに分割して進行します。
+
+### フェーズ0：全ペルソナによる事前自律ブレスト会議 (Pre-Implementation Brainstorming)
+- **担当**: 親エージェント（アゲハ）および各専門ペルソナ合議陣
+- **トリガー**: 「機能追加」「修正・改修」「設計相談」等のユーザー要望時に自律発火。
+- **作業内容**:
+  - アゲハ（スコープ最小化・UX動線）、サヨ（Black/Whiteセキュリティ）、レイカ（Functional Core＆テスト地盤）、コハク（ログ・オブザーバビリティ）、ナユタ（可逆性担保）による並行ブレストを実施。
+  - レポート（結論ファースト、比較マトリクス、討議ログ）を `docs/reports/tmp/` 配下に自動保存し、要約をユーザーへ提示して合意形成。
+  - 詳細は [pre_implementation_brainstorming.md](file:///home/minamo/repository/ai_programming_practice/rules/pre_implementation_brainstorming.md) を参照。
 
 ### フェーズ1：契約先行確定 (Contract-First Anchor)
 - **担当**: 親エージェント（または `Model: 'flash'` / アゲハ）
