@@ -79,12 +79,18 @@
         └── tmp/               # 【.gitignore / .aiignore 対象】日常のブレスト・作業用ログ
 ```
 
-### 分類基準
+### 分類基準と命名規則
+
+ファイル名の重複（衝突）を完全に防ぎ、時系列での自動ソートを可能にするため、レポートファイル名には必ず**日時（タイムスタンプ）プレフィックス**を付与します。
+
 1. **一時レポート (`docs/reports/tmp/`)**:
    - **ライフサイクル**: 機能追加や修正時の初期ブレスト、作業ログ、試行錯誤の記録。
    - **バージョン管理**: Git/Jujutsu でコミット・Pushしない（`.gitignore` および `.aiignore` に登録）。
-   - **命名規則**: `docs/reports/tmp/YYYY-MM-DD_<feature-name>_brainstorm.md`
+   - **命名規則**: `docs/reports/tmp/YYYYMMDD_HHMMSS_<feature-name>_brainstorm.md`  
+     （例: `20261108_200714_add_user_auth_brainstorm.md`）
 2. **永続レポート (`docs/reports/permanent/` または `docs/adr/`)**:
    - **ライフサイクル**: プロジェクト全体に関わる重大な設計判断、セキュリティ監査報告、将来の参照が必要な正式仕様書。
    - **バージョン管理**: VCSで追跡し、コミット・Pushする。
+   - **命名規則**: `docs/reports/permanent/YYYYMMDD_HHMMSS_<feature-name>_<kind>.md`  
+     （例: `20261108_201500_payment_flow_security_audit.md`）
    - **昇格ルール**: 一時レポートの内容が「プロジェクト共通の基盤方針」や「重大なトレードオフ」を含む場合、ユーザーの合意を得て永続レポートまたは ADR（`docs/adr/`）へ昇格・整理します。

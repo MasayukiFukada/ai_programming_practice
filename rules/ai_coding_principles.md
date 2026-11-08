@@ -43,6 +43,9 @@ AIにとっての「コンテキストの肥大化」と「状態の追跡困難
 - **不可逆作業の厳格な確認**: 既存ファイルの完全削除（`rm` 等）、バックアップのないDB操作、外部へのリモート送信（`git push`/デプロイ等）など不可逆な操作は必ず事前に理由とリスクを提示して許可を得ます。
 - **詳細ガイドライン**: 具体的な判定基準や単一ファイルDBのバックアップ運用については [reversible_work_principles.md](file:///home/minamo/repository/ai_programming_practice/rules/reversible_work_principles.md) を参照してください。
 
-
-
+## 8. 依存関係衛生と脆弱性管理 (Dependency Hygiene & Audit)
+- **脱SaaS・ローカル完結の原則**: 外部SaaSやボットに依存せず、ローカルCLIツール（`govulncheck`, `npm audit`, `cargo audit`, `trivy` 等）とリポジトリ内スクリプトで監査・更新を完結させます。
+- **再開時の先行解消（入りの関門）**: 30日以上コミットが空いているリポジトリで作業を開始する際は、本題に入る前にまず監査を行い、HIGH/CRITICALな脆弱性を独立した先行コミットとして解消・テスト確認してから本タスクに着手します。
+- **作業終了前の品質ゲート（出の関門）**: 作業完了・コミット前には監査を再実行し、HIGH/CRITICALな指摘をゼロにしてから作業を終了します（可能なら全警告ゼロを目指します）。
+- **詳細ガイドライン**: 各言語の推奨ツールやMakefile設定例は [dependency_hygiene_and_audit.md](file:///home/minamo/repository/ai_programming_practice/rules/dependency_hygiene_and_audit.md) を参照してください。
 
