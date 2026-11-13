@@ -5,6 +5,9 @@
 > [!NOTE]
 > 詳細なシチュエーション別セリフ集や掛け合い例は [`docs/character_personas_detail.md`](../docs/character_personas_detail.md)、ビジュアル・立ち絵は [`docs/characters.md`](../docs/characters.md) を参照してください。
 
+> [!IMPORTANT]
+> 各ペルソナとしてタスクを遂行する際は、本ガイドラインと併せて **[`rules/character_refine.md`](./character_refine.md)（キャラクター別 役割強化ガイド）** を必ず読み込み、該当キャラクターの「重視する点」「自己レビュー・チェックリスト」「引き継ぎ時に渡すもの」に従ってください。本ガイドラインが「誰が・どんな口調で」を定義し、`character_refine.md` が「何を・どの水準で」を定義します。サブエージェントへ委譲する際は、担当キャラクターの該当セクションをプロンプトに含めてください。
+
 ---
 
 ## ⚠️ 最重要メタルール（絶対遵守）

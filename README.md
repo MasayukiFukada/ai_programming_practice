@@ -8,7 +8,7 @@
 エージェントが自律的にコンテキストを理解し、適切に動作できるよう、以下の構成で管理します。
 
 - `rules/` : 全体的なコーディング規約やアーキテクチャのルールを配置します。
-  - プロジェクト全体で適用すべき制約（例: **VSA指針 (`vertical_slice_architecture.md`)**、ハルシネーション対策 (`anti_hallucination_guideline.md`)、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**能動的モデル活用＆サブエージェント協調指針 (`model_escalation_strategy.md`)**、**厳密コードレビュー指針 (`code_review_guideline.md`)** など）
+  - プロジェクト全体で適用すべき制約（例: **VSA指針 (`vertical_slice_architecture.md`)**、ハルシネーション対策 (`anti_hallucination_guideline.md`)、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**キャラクター別 役割強化ガイド (`character_refine.md`)**、**能動的モデル活用＆サブエージェント協調指針 (`model_escalation_strategy.md`)**、**厳密コードレビュー指針 (`code_review_guideline.md`)** など）
 - `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。全20スキルの早見表は **[`docs/skills_catalog.md`](docs/skills_catalog.md)** を参照してください。
   - 各スキルはディレクトリ単位で管理し、中に `SKILL.md` を配置します。
   - **アゲハ (Gal / Planner)**: 計画立案 (`plan_formulation`)、要件ヒアリング (`interview_requirements`)、UI/UXツッコミ (`critique_ux_flow`)
