@@ -3,10 +3,40 @@
 # setup_global.sh: Antigravity グローバル共通基盤セットアップスクリプト
 #
 # 本リポジトリの skills/ rules/ を ~/.gemini/config/ 配下にシンボリックリンクし、
-# グローバル AGENTS.md にペルソナ展開設定を追記・登録します。
+# 軽量コア（rules/global_core.md）をグローバル AGENTS.md へ展開登録します。
 # ==============================================================================
 
 set -euo pipefail
+
+usage() {
+    cat << 'EOF'
+Usage: setup_global.sh [OPTIONS]
+
+Options:
+  --migrate    既存の ~/.gemini/config/AGENTS.md のバックアップを作成し、
+               軽量コア (rules/global_core.md) 構成へ移行（置換）します。
+  -h, --help   このヘルプを表示します。
+EOF
+}
+
+MIGRATE=false
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --migrate)
+            MIGRATE=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "エラー: 不明なオプションです: $1" >&2
+            usage >&2
+            exit 1
+            ;;
+    esac
+done
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -63,69 +93,42 @@ if [ -d "${REPO_ROOT}/commands" ]; then
     done
 fi
 
-# 5. ~/.gemini/config/AGENTS.md へのペルソナ・VCS優先・モデル階層ルールの登録
-PERSONA_PATH="${REPO_ROOT}/rules/character_personas.md"
-PERSONA_INCLUDE="@[character_personas](${PERSONA_PATH})"
-VCS_PATH="${REPO_ROOT}/rules/vcs_jujutsu_priority.md"
-VCS_INCLUDE="@[vcs_jujutsu_priority](${VCS_PATH})"
-ESCALATION_PATH="${REPO_ROOT}/rules/model_escalation_strategy.md"
-ESCALATION_INCLUDE="@[model_escalation_strategy](${ESCALATION_PATH})"
+# 5. ~/.gemini/config/AGENTS.md への軽量コア登録・移行
+GLOBAL_CORE_PATH="${REPO_ROOT}/rules/global_core.md"
+GLOBAL_CORE_INCLUDE="@[global_core](${GLOBAL_CORE_PATH})"
 
-if [ ! -f "${GLOBAL_AGENTS_MD}" ]; then
+write_slim_global_agents() {
     cat << EOF > "${GLOBAL_AGENTS_MD}"
 # グローバル共通エージェント設定
 
-## キャラクターペルソナ
-タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
-${PERSONA_INCLUDE}
-
-## バージョン管理システム（VCS）
-リポジトリ内に \`.jj/\` が存在するか \`jj root\` が成功する場合、Git よりも **Jujutsu (\`jj\`)** を最優先で使用してください（例: \`jj status\`, \`jj diff\`, \`jj describe\`, \`jj commit\`, \`jj log\`）。
-${VCS_INCLUDE}
-
-## モデル階層とエスカレーション戦略
-ネイティブの計画/実行分離（Planner-Executor）が有効な環境では通常の設計・実装・エラー差し戻しを本体に任せて二重委譲を避け、広域調査・独立レビュー・並列作業を中心にサブエージェントを活用してください。単体モデル環境では標準モデルで進め、同一エラーの2回連続失敗や難関タスク時に高度推論モデル（High-Reasoning）のサブエージェントへ委託してください。
-${ESCALATION_INCLUDE}
+${GLOBAL_CORE_INCLUDE}
 EOF
-    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、ペルソナ、Jujutsu優先、およびモデル階層ルールを登録しました。"
+}
+
+if [ ! -f "${GLOBAL_AGENTS_MD}" ]; then
+    write_slim_global_agents
+    echo "✔ ${GLOBAL_AGENTS_MD} を新規作成し、軽量コア（global_core.md）を登録しました。"
+elif [ "${MIGRATE}" = true ]; then
+    BACKUP_PATH="${GLOBAL_AGENTS_MD}.bak.$(date +%Y%m%d%H%M%S)"
+    if [ -e "${BACKUP_PATH}" ]; then
+        BACKUP_PATH="${BACKUP_PATH}.$$"
+    fi
+    cp -p "${GLOBAL_AGENTS_MD}" "${BACKUP_PATH}"
+    write_slim_global_agents
+    echo "✔ 既存ファイルをバックアップし、軽量コア構成へ移行しました: ${BACKUP_PATH}"
+    echo "  ※ ユーザー独自の追記があった場合は、バックアップから必要な行のみ転記してください。"
 else
-    if ! grep -Fq "${PERSONA_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "character_personas.md" "${GLOBAL_AGENTS_MD}"; then
-        cat << EOF >> "${GLOBAL_AGENTS_MD}"
-
-## キャラクターペルソナ
-タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
-${PERSONA_INCLUDE}
-EOF
-        echo "✔ ${GLOBAL_AGENTS_MD} にペルソナルールを追記・登録しました。"
+    if grep -Eq "character_personas\.md|vcs_jujutsu_priority\.md|model_escalation_strategy\.md" "${GLOBAL_AGENTS_MD}"; then
+        echo "⚠ 旧構成（3ファイル丸ごと展開・24KB上限超過リスクあり）を検出しました。"
+        echo "  ./scripts/setup_global.sh --migrate を実行すると、バックアップを作成して軽量コアへ移行できます。"
+    elif grep -Fq "@[global_core](" "${GLOBAL_AGENTS_MD}"; then
+        echo "✔ ${GLOBAL_AGENTS_MD} には既に軽量コア（global_core.md）が登録されています。"
     else
-        echo "✔ ${GLOBAL_AGENTS_MD} には既にペルソナルールが登録されています。"
-    fi
-
-    if ! grep -Fq "${VCS_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "vcs_jujutsu_priority.md" "${GLOBAL_AGENTS_MD}"; then
-        cat << EOF >> "${GLOBAL_AGENTS_MD}"
-
-## バージョン管理システム（VCS）
-リポジトリ内に \`.jj/\` が存在するか \`jj root\` が成功する場合、Git よりも **Jujutsu (\`jj\`)** を最優先で使用してください（例: \`jj status\`, \`jj diff\`, \`jj describe\`, \`jj commit\`, \`jj log\`）。
-${VCS_INCLUDE}
-EOF
-        echo "✔ ${GLOBAL_AGENTS_MD} にJujutsu優先ルールを追記・登録しました。"
-    else
-        echo "✔ ${GLOBAL_AGENTS_MD} には既にJujutsu優先ルールが登録されています。"
-    fi
-
-    if ! grep -Fq "${ESCALATION_INCLUDE}" "${GLOBAL_AGENTS_MD}" && ! grep -Fq "model_escalation_strategy.md" "${GLOBAL_AGENTS_MD}"; then
-        cat << EOF >> "${GLOBAL_AGENTS_MD}"
-
-## モデル階層とエスカレーション戦略
-ネイティブの計画/実行分離（Planner-Executor）が有効な環境では通常の設計・実装・エラー差し戻しを本体に任せて二重委譲を避け、広域調査・独立レビュー・並列作業を中心にサブエージェントを活用してください。単体モデル環境では標準モデルで進め、同一エラーの2回連続失敗や難関タスク時に高度推論モデル（High-Reasoning）のサブエージェントへ委託してください。
-${ESCALATION_INCLUDE}
-EOF
-        echo "✔ ${GLOBAL_AGENTS_MD} にモデル階層・エスカレーションルールを追記・登録しました。"
-    else
-        echo "✔ ${GLOBAL_AGENTS_MD} には既にモデル階層・エスカレーションルールが登録されています。"
+        printf '\n%s\n' "${GLOBAL_CORE_INCLUDE}" >> "${GLOBAL_AGENTS_MD}"
+        echo "✔ ${GLOBAL_AGENTS_MD} の末尾に軽量コア（global_core.md）を追記・登録しました。"
     fi
 fi
 
 echo ""
 echo "=== セットアップが完了しました ==="
-echo "これで、マシン上のどのプロジェクトでも共通スキルおよびペルソナが常時有効になります。"
+echo "これで、マシン上のどのプロジェクトでも共通スキルおよび軽量コア設定が有効になります。"

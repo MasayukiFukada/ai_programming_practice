@@ -8,7 +8,7 @@
 エージェントが自律的にコンテキストを理解し、適切に動作できるよう、以下の構成で管理します。
 
 - `rules/` : 全体的なコーディング規約やアーキテクチャのルールを配置します。
-  - プロジェクト全体で適用すべき制約（例: **VSA指針 (`vertical_slice_architecture.md`)**、ハルシネーション対策 (`anti_hallucination_guideline.md`)、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**キャラクター別 役割強化ガイド (`character_refine.md`)**、**能動的モデル活用＆サブエージェント協調指針 (`model_escalation_strategy.md`)**、**厳密コードレビュー指針 (`code_review_guideline.md`)** など）
+  - プロジェクト全体で適用すべき制約（例: **グローバル常時展開用の軽量コア (`global_core.md`)**、**VSA指針 (`vertical_slice_architecture.md`)**、ハルシネーション対策 (`anti_hallucination_guideline.md`)、**Jujutsu優先指針 (`vcs_jujutsu_priority.md`)**、**クイックコマンド指針 (`quick_commands.md`)**、**プロンプトキャッシング＆トークン最適化指針 (`prompt_caching_guideline.md`)**、**キャラクターペルソナルール (`character_personas.md`)**、**キャラクター別 役割強化ガイド (`character_refine.md`)**、**能動的モデル活用＆サブエージェント協調指針 (`model_escalation_strategy.md`)**、**厳密コードレビュー指針 (`code_review_guideline.md`)** など）
 - `skills/` : 特定のタスクを実行するためのエージェント用手順書（スキル）を配置します。全20スキルの早見表は **[`docs/skills_catalog.md`](docs/skills_catalog.md)** を参照してください。
   - 各スキルはディレクトリ単位で管理し、中に `SKILL.md` を配置します。
   - **アゲハ (Gal / Planner)**: 計画立案 (`plan_formulation`)、要件ヒアリング (`interview_requirements`)、UI/UXツッコミ (`critique_ux_flow`)
@@ -17,7 +17,7 @@
   - **サヨ (Smug / Reviewer)**: 厳密コードレビュー (`review_code`)、意地悪ファズテスト生成 (`generate_fuzz_tests`)
   - **コハク (Scholar / Documenter)**: ドキュメント作成 (`create_docs`)、ADR自動永続化 (`distill_adr`)、Mermaidアーキテクチャ図解 (`visualize_architecture`)
 - `templates/` : 各プロジェクトで利用できる設定ファイルのテンプレートです。
-  - `AGENTS.template.md` : 親プロジェクトのルートに配置する `AGENTS.md` の雛形です。プロジェクト固有の要件や技術スタック、ペルソナモードのON/OFF等を設定できます。
+  - `AGENTS.template.md` : 親プロジェクトのルートに配置する `AGENTS.md` の軽量雛形です。プロジェクト固有情報に特化しており、共通ルールはグローバル設定またはプラグイン配下の `rules/` を継承します。
   - `LOCAL_CONTEXT.template.md` : 個人開発やローカル環境でトークン消費を抑えつつAIにプロジェクト仕様（準静的）を渡すための雛形です（`.gitignore` 推奨）。
   - `LOCAL_LOG.template.md` : 直近の作業履歴や決定事項を末尾追記（Append-Only）形式で安全に蓄積し、Prefixキャッシュを保護するための雛形です（`.gitignore` 推奨）。
 - `hooks.json` / `scripts/` : AIライフサイクルに連動する安全ガード・自動化スクリプトです。
@@ -47,10 +47,13 @@
 PC上のすべてのプロジェクトから本リポジトリを参照するスタイルです。各プロジェクト側に設定ファイルをコミットする必要がなく、本リポジトリを更新するだけで全プロジェクトにスキルやペルソナが即時反映されます。
 
 #### 自動セットアップ（ワンコマンド）
-本リポジトリ配下のセットアップスクリプトを実行するだけで、シンボリックリンク作成およびグローバル `AGENTS.md` へのペルソナ登録が完了します。
+本リポジトリ配下のセットアップスクリプトを実行するだけで、シンボリックリンク作成およびグローバル `AGENTS.md` への軽量コア登録が完了します。
 
 ```bash
 ./scripts/setup_global.sh
+
+# 旧構成（3ファイル丸ごと展開）から軽量コアへ移行する場合（自動でバックアップを作成）
+./scripts/setup_global.sh --migrate
 ```
 
 #### 手動で設定する場合
@@ -61,12 +64,10 @@ ln -s ~/repository/ai_programming_practice/skills ~/.gemini/config/skills
 ln -s ~/repository/ai_programming_practice/rules ~/.gemini/config/rules
 ln -s ~/repository/ai_programming_practice/commands/i-have-adhd.toml ~/.gemini/commands/i-have-adhd.toml
 
-# 2. グローバル AGENTS.md にペルソナルールをインクルード登録
+# 2. グローバル AGENTS.md に軽量コアをインクルード登録（実際の環境に合わせて絶対パスを指定）
 cat << 'EOF' >> ~/.gemini/config/AGENTS.md
 
-## キャラクターペルソナ
-タスクの役割や指名に応じて、以下のキャラクターペルソナ（口調・行動規範）を適用してください：
-@[character_personas](/home/minamo/repository/ai_programming_practice/rules/character_personas.md)
+@[global_core](/path/to/ai_programming_practice/rules/global_core.md)
 EOF
 ```
 
