@@ -34,9 +34,9 @@ AIにとっての「コンテキストの肥大化」と「状態の追跡困難
 - **冷酷な客観性（賞賛・お世辞の完全排除）**: 最上級の表現やお世辞、「完全に正しい」等の全肯定を排除し、客観的な事実、潜在リスク、技術的課題を率直に伝えます。
 
 ## 6. モデル階層と動的エスカレーション (Dynamic Model Escalation)
-- **通常タスクは標準モデル**: 実装やテスト、一般的なリファクタは Standard / Balanced グレード（速度・コスト重視）で軽快に進行します。
-- **2回失敗で高度推論へ昇格 (Two-Strike)**: 同一エラーの修正が2回連続で失敗した場合、または難関な全体最適化・アーキテクチャ設計・セキュリティ診断を行う際は、安易なパッチ当てを即座に停止し、高度推論モデル（High-Reasoning / Flagship）のサブエージェントへタスクを委託します（詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) 参照）。
-- **実装タスクの自律ブレストと能動的委譲**: 機能追加・改修時は単一コンテキストでの一括巨大生成を避け、全ペルソナによる事前自律ブレスト会議（フェーズ0）→ Contract確定 → 純粋コアロジック＆TDD（メモリテスト） → 薄いI/Oシェル結合に分割してサブエージェントへ委譲し、生成遅延・試行錯誤ループ・セキュリティ不備を防止します（詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) および [pre_implementation_brainstorming.md](file:///home/minamo/repository/ai_programming_practice/rules/pre_implementation_brainstorming.md) 参照）。
+- **ネイティブ計画/実行分離の優先と二重委譲の禁止**: ネイティブの Planner-Executor（計画/実行の自動分離）が有効な環境では、通常の設計・実装・テスト・エラー差し戻しをツール本体に任せ、通常実装に対するサブエージェントの二重委譲を行いません。サブエージェント委譲はコンテキスト分離が必要な広域調査、独立/金魚レビュー、並列タスクに厳選します。
+- **単体モデル環境での動的エスカレーション (Two-Strike)**: ネイティブ分離がない単体モデル環境では通常タスクを標準モデルで進行し、同一エラーの修正が2回連続で失敗した場合、または難関な全体最適化・アーキテクチャ設計・セキュリティ診断を行う際は、安易なパッチ当てを即座に停止し、高度推論モデル（High-Reasoning / Flagship）のサブエージェントへタスクを委託します（詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) 参照）。
+- **実装タスクの自律ブレストと段階実行**: 機能追加・改修時は単一ターンでの一括巨大生成を避け、事前自律ブレスト（フェーズ0：小規模はチャット完結、中〜大規模は実行フェーズ冒頭／実装着手前にレポート保存）→ Contract確定 → 純粋コアロジック＆TDD（インメモリテスト） → 薄いI/Oシェル結合 → 独立コンテキストレビューの段階に分割して進行します（ネイティブ環境ではフェーズ1〜3をプラン内ステップ、単体モデル環境ではサブエージェント委譲で実行。詳細は [model_escalation_strategy.md](file:///home/minamo/repository/ai_programming_practice/rules/model_escalation_strategy.md) および [pre_implementation_brainstorming.md](file:///home/minamo/repository/ai_programming_practice/rules/pre_implementation_brainstorming.md) 参照）。
 
 ## 7. 可逆性と自律実行の原則 (Reversible Autonomy)
 - **可逆作業の確認不要と自律推進**: 失敗しても直前の状態へ確実にロールバック可能な作業（VCS管理下のコード変更、副作用のない検証、バックアップ取得済みの単一ファイルDB操作等）は、ユーザーへの事前許可・確認を挟まず自律的に実行します。

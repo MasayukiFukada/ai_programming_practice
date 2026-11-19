@@ -90,7 +90,7 @@
 - ドキュメントは `docs/` 配下に Markdown 形式( Open Knowledge Format )で残す。
 - 変更を加える際は `PLAN.md` を更新し、進捗を管理する。
 - ローカル専用のAIコンテキストは `LOCAL_CONTEXT.md`（仕様・不変）と `LOCAL_LOG.md`（作業ログ・追記型）に分離して管理する。
-- 能動的モデル活用＆サブエージェント協調: 単一コンテキストで抱え込まず、調査（`flash`）・核心実装（`pro`）・客観レビュー（`pro`）などのフェーズに応じてサブエージェントを能動的に起動し、適材適所で最新モデルを活用する（`rules/model_escalation_strategy.md` 参照）。
+- 能動的モデル活用＆サブエージェント協調: ネイティブの計画/実行分離（Planner-Executor）がある環境では通常の設計・実装・エラー差し戻しを本体に任せて二重委譲を避け、コンテキスト分離が必要な広域調査（`Lightweight`/`Standard`）・独立レビュー（日常 `Standard` / 厳格 `High-Reasoning`）・並列作業を中心にサブエージェントを活用する。単体モデル環境では従来のフェーズ別委譲と Two-Strike 昇格を適用する（`rules/model_escalation_strategy.md` 参照）。
 - 依存関係衛生と脆弱性管理（Dependency Hygiene & Audit）:
   - 30日以上コミットが空いているリポジトリで作業を開始する際は、本題に入る前にまず監査（`govulncheck`, `npm audit`, `cargo audit`, `trivy` 等）を行い、HIGH/CRITICALな脆弱性を独立した先行コミットとして解消・テスト確認してから本タスクに着手する。
   - 作業完了・コミット前には監査を再実行し、HIGH/CRITICALな指摘をゼロにしてから完了とする（可能なら警告ゼロを目指す）。（詳細は `rules/dependency_hygiene_and_audit.md` 参照）。
